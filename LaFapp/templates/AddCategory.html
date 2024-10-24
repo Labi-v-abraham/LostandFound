@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div class="container-fluid">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title fw-semibold mb-4">Add Category</h5>
+              <div class="card">
+                <div class="card-body">
+                  <form method="post" action="{% url 'save_category' %}" enctype="multipart/form-data">
+                      {% csrf_token %}
+
+                    <div class="mb-3">
+                      <label  class="form-label">Category</label>
+                      <input type="text" class="form-control"  aria-describedby="emailHelp" name="category">
+<!--                      <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>-->
+                    </div>
+                    <div class="mb-3">
+                        <label  class="form-label">Description</label>
+                        <textarea class="form-control" name="desription"></textarea>
+                    </div>
+                    <div class="mb-3">
+                      <label  class="form-label">Image</label>
+                      <input type="file" class="form-control" name="img">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+
+                  </form>
+                    <div>
+                    <a href="{% url 'dis_category' %}" style="padding-left:660px; "><button class="btn btn-outline-primary m-1">View Category</button></a>
+
+                    </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+{% if messages %}
+    {% for i in messages %}
+        {% if i.tags == 'warning' %}
+            <script>
+                swal('{{i}}','','warning')
+            </script>
+            {% elif i.tags == 'error' %}
+                 <script>
+                    swal('{{i}}','','error')
+                 </script>
+            {% elif i.tags == 'success' %}
+                 <script>
+                     swal('{{i}}','','success')
+                 </script>
+        {% else %}
+            <script>
+                swal('{{i}}','','info')
+            </script>
+        {% endif %}
+    {% endfor %}
+{% endif %}
+</body>
+</html>
+{% endblock %}

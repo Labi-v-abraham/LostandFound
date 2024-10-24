@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div class="container-fluid">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title fw-semibold mb-4">Edit Product</h5>
+              <div class="card">
+                <div class="card-body">
+                  <form method="post" action="{% url 'update_product' dataid=product.id %}" enctype="multipart/form-data">
+                      {% csrf_token %}
+
+                      <div class="mb-3">
+                          <label  class="form-label">Select Category</label>
+                          <select name="category" class="form-control">
+                          <option>{{product.Category}}</option>
+                          {% for i in category %}
+                          <option>{{i.Category_Name}}</option>
+                              {% endfor %}
+                      </select>
+                      </div>
+
+
+                    <div class="mb-3">
+                      <label  class="form-label">Product</label>
+                      <input type="text" class="form-control"  aria-describedby="emailHelp" name="product" value="{{product.Product_Name}}">
+<!--                      <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>-->
+                    </div>
+                    <div class="mb-3">
+                      <label  class="form-label">Price</label>
+                      <input type="text" class="form-control"  aria-describedby="emailHelp" name="price" value="{{product.Price}}">
+<!--                      <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>-->
+                    </div>
+                    <div class="mb-3">
+                        <label  class="form-label">Description</label>
+                        <textarea class="form-control" name="description">{{product.Description}}</textarea>
+                    </div>
+                    <div class="mb-3">
+                      <label  class="form-label">Image</label><br>
+                        <img src="{{product.Product_Image.url}}" width="100px" height="100px">
+                      <input type="file" class="form-control" name="img">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+
+                  </form>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+</body>
+</html>
+{% endblock %}
